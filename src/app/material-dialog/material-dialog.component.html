@@ -1,0 +1,29 @@
+<h1 mat-dialog-title></h1>
+<div mat-dialog-content [formGroup]="form">
+ 
+  <mat-form-field appearance="legacy">
+    <input matInput placeholder="Enter itemcode for search" formControlName="itemCode">
+    <mat-list *ngFor="let item of itemList" (click)="setItem(item)">
+      <mat-list-item role="listitem" class="item-size">
+{{item.ItemDs}}
+      </mat-list-item>
+      </mat-list>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Description" formControlName="description">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="unit" formControlName="unit">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="qty" formControlName="qty">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput placeholder="Price" formControlName="price">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveData()" >Save</button>
+  <button mat-button [mat-dialog-close]="animal" cdkFocusInitial>Cancel</button>
+</div>
+

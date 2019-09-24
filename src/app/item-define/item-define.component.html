@@ -1,0 +1,146 @@
+<div class="main-div">
+  <mat-card class="z-depth center" flex="50">
+    <mat-card-header>
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>Item Details</mat-card-title>
+
+    </mat-card-header>
+    <mat-card-content>
+      <div class="block">
+        <label>Item Code</label>
+        <mat-form-field>
+          <input matInput type="text" class="align-input" [(ngModel)]="itemCode" />
+        </mat-form-field>
+      </div>
+      <div class="block">
+        <label>Item description</label>
+        <mat-form-field>
+          <input matInput type="text" class="align-input" [(ngModel)]="itemDs" />
+        </mat-form-field>
+      </div>
+      <div class="block" style="margin-top: 10px">
+        <label>Quantity</label>
+        <mat-form-field>
+          <input matInput type="number" class="align-input" [(ngModel)]="qty" />
+        </mat-form-field>
+      </div>
+
+    </mat-card-content>
+    <button mat-raised-button class="button-new" color="primary" (click)="openDialog()">Add materials</button>
+    <div>
+      <mat-list role="list">
+        <mat-list-item role="listitem">Item Code</mat-list-item>
+        <mat-list-item role="listitem">Description</mat-list-item>
+        <mat-list-item role="listitem">Unit</mat-list-item>
+        <mat-list-item role="listitem">Quantity</mat-list-item>
+        <mat-list-item role="listitem">UnitPrice</mat-list-item>
+        <mat-list-item role="listitem">Amount</mat-list-item>
+      </mat-list>
+    </div>
+    <div style="float: left;clear:left;margin-bottom: 15px;">
+      <mat-list *ngFor="let item of materialsUsed">
+        <mat-list-item role="listitem" class="item-size">
+          <div>
+            {{item.itemCode}}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">
+          <div>
+            {{item.desc}}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">
+          <div>
+            {{item.unit}}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">
+
+          <div>
+            {{item.quantity}}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">
+          <div>
+            {{item.unitPrice}}
+          </div>
+        </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">
+          <div>
+            {{item.unitPrice*item.quantity}}
+          </div>
+        </mat-list-item>
+
+      </mat-list>
+    </div>
+    <div class="line"></div>
+    <div style="height: 100px;margin-top:20px">
+    <div class="align-block">
+      <mat-list>
+        <mat-list-item role="listitem" class="item-size">Total Material Cost</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{calculateTotal()}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Waist</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"><input matInput type="number" [(ngModel)]="waistPerc" placeholder="enter"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> %</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{percentageCalculation(waistPerc)}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Labour cost %</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"><input matInput type="number"  placeholder="enter" [(ngModel)]="lbrCostPerc"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> %</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{percentageCalculation(lbrCostPerc)}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Eqp</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"><input matInput type="number"  placeholder="enter" [(ngModel)]="eqp"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> hr</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"><input matInput type="number"  placeholder="enter" [(ngModel)]="eqpNum"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{eqp*eqpNum}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Other</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{this.other}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Total Cost</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{this.totalCost}} </mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block">
+      <mat-list role="list">
+        <mat-list-item role="listitem" class="item-size">Margin</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> </mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> {{this.totalCost}}</mat-list-item>
+      </mat-list>
+    </div>
+    <div class="align-block"><h1>total</h1><span> </span></div>
+    <div class="align-block"><button mat-raised-button class="button-new" color="primary" (click)="saveItem()">Save</button></div>
+  </div>
+  </mat-card>
+  <!-- <button matButton> Add Materials</button> -->
+</div>

@@ -1,0 +1,26 @@
+<h1 mat-dialog-title>Please fill out the form</h1>
+<div mat-dialog-content>
+  <div class="example-container" [formGroup]="materialsForm">
+    <mat-form-field>
+      <input matInput placeholder="ItemCode" formControlName="itemCode">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput placeholder="Description" formControlName="desc">
+    </mat-form-field>
+  
+    <mat-form-field>
+      <input matInput placeholder="Unit" formControlName="unit">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Price" type="number" formControlName="unitPrice">
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Quantity" type="number" formControlName="quantity">
+    </mat-form-field>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="saveData()">save</button>
+  <button mat-button >Cancel</button>
+</div>
