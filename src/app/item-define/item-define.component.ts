@@ -69,10 +69,24 @@ export class ItemDefineComponent implements OnInit {
   saveItem(){
     this.setValues()
     this.http.post<any>(this.baseUrl + 'stock/InsertItemDefine',{data:this.setValues()} ).subscribe((res)=>{
-     console.log(res)
+     if(res.success_msg=='inserted'){
      this.snackBar.open("successfully saved",'a' ,{
       duration: 2000
     });
+    this.materialsUsed=[];
+    this.itemCode='';
+    this.itemDs='';
+    this.qty=null;
+    this.waistPerc=null;
+    this.lbrCostPerc=null;
+    this.eqpNum=null;
+    this.eqp=null;
+  }
+    else{
+      this.snackBar.open("something went wrong",'' ,{
+        duration: 2000
+      });
+    }
     });
   }
  private setValues() {
@@ -80,7 +94,7 @@ export class ItemDefineComponent implements OnInit {
     const data= {
       "ItemDefineHdr": {
         "ItemDefineId": this.itemCode,
-        "ItemId": +this.itemCode,
+        "ItemId": parseInt(this.itemCode),
         "ItemCode": this.itemCode,
         "ItemDs": this.itemDs,
         "Qty":this.qty,
