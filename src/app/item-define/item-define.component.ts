@@ -20,6 +20,8 @@ export class ItemDefineComponent implements OnInit {
   lbrCostPerc: any;
   eqp: any;
   eqpNum: any;
+  itemDs: any;
+  qty: any;
   constructor(private dialog: MatDialog,private http:HttpClient,private snackBar: MatSnackBar ) { }
   ngOnInit() {
   }
@@ -43,9 +45,10 @@ export class ItemDefineComponent implements OnInit {
   calculateTotal() {
     if (this.materialsUsed.length > 0) {
       this.materialsUsed.map(val => {
-        val.unitPrice = +val.unitPrice;
-        val.quantity = +val.quantity;
-        val.total = val.unitPrice * val.quantity
+        val.unitPrice = +val.Rate;
+        val.quantity = +val.MaterialQty;
+        val.total = val.unitPrice * val.quantity;
+        val.Amount=val.total;
       })
     }
     // console.log(this.materialsUsed, "sum", this.sum('total', this.materialsUsed))
@@ -57,11 +60,11 @@ export class ItemDefineComponent implements OnInit {
   }
   waistCalculation() {
     if (this.waistPerc && this.total)
-      return (100 * this.waistPerc) / this.total;
+      return (this.total * this.waistPerc) /100 ;
   }
   percentageCalculation(value) {
     if (value)
-      return (100 * value) / this.total;
+      return ( this.total * value) /100;
   }
   saveItem(){
     this.setValues()
@@ -78,6 +81,9 @@ export class ItemDefineComponent implements OnInit {
       "ItemDefineHdr": {
         "ItemDefineId": this.itemCode,
         "ItemId": +this.itemCode,
+        "ItemCode": this.itemCode,
+        "ItemDs": this.itemDs,
+        "Qty":this.qty,
         "TotalMaterialCost":this.calculateTotal(),
         "WaistPer": this.waistPerc,
         "WaistAmount": this.waistCalculation(),
@@ -90,12 +96,17 @@ export class ItemDefineComponent implements OnInit {
         "Other": this.other,
         "TotalCost": this.totalCost,
         "Margin": this.margin,
-        "TotalAmount": 10,
+        "TotalAmount": this.grandTotal(),
         "InsertUpdateMode": 0
       },
       "MaterialItems": this.materialsUsed
     
   }
   return data
+  }
+  grandTotal(){
+    let t=this.calculateTotal()+this.waistCalculation()+this.percentageCalculation(this.lbrCostPerc)+(this.eqp*this.eqpNum)+this.other+this.totalCost+this.margin;
+    
+    return t;
   }
 }
