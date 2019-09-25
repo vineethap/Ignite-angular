@@ -41,33 +41,33 @@
       <mat-list *ngFor="let item of materialsUsed">
         <mat-list-item role="listitem" class="item-size">
           <div>
-            {{item.itemCode}}
+            {{item.ItemDefineId}}
           </div>
         </mat-list-item>
         <mat-list-item role="listitem" class="item-size">
           <div>
-            {{item.desc}}
+            {{item.MaterialItemDs}}
           </div>
         </mat-list-item>
         <mat-list-item role="listitem" class="item-size">
           <div>
-            {{item.unit}}
+            {{item.Unit}}
           </div>
         </mat-list-item>
         <mat-list-item role="listitem" class="item-size">
 
           <div>
-            {{item.quantity}}
+            {{item.MaterialQty}}
           </div>
         </mat-list-item>
         <mat-list-item role="listitem" class="item-size">
           <div>
-            {{item.unitPrice}}
+            {{item.Rate}}
           </div>
         </mat-list-item>
         <mat-list-item role="listitem" class="item-size">
           <div>
-            {{item.unitPrice*item.quantity}}
+            {{item.Rate*item.MaterialQty}}
           </div>
         </mat-list-item>
 
@@ -90,7 +90,7 @@
         <mat-list-item role="listitem" class="item-size"><input matInput type="number" [(ngModel)]="waistPerc" placeholder="enter"> </mat-list-item>
         <mat-list-item role="listitem" class="item-size"> %</mat-list-item>
         <mat-list-item role="listitem" class="item-size"> </mat-list-item>
-        <mat-list-item role="listitem" class="item-size">{{percentageCalculation(waistPerc)}} </mat-list-item>
+        <mat-list-item role="listitem" class="item-size">{{waistCalculation()}} </mat-list-item>
       </mat-list>
     </div>
     <div class="align-block">
@@ -135,10 +135,10 @@
         <mat-list-item role="listitem" class="item-size"> </mat-list-item>
         <mat-list-item role="listitem" class="item-size"> </mat-list-item>
         <mat-list-item role="listitem" class="item-size"> </mat-list-item>
-        <mat-list-item role="listitem" class="item-size"> {{this.totalCost}}</mat-list-item>
+        <mat-list-item role="listitem" class="item-size"> {{this.margin}}</mat-list-item>
       </mat-list>
     </div>
-    <div class="align-block"><h1>total</h1><span> </span></div>
+    <div class="align-block"><h1>total</h1><span>{{grandTotal()}} </span></div>
     <div class="align-block"><button mat-raised-button class="button-new" color="primary" (click)="saveItem()">Save</button></div>
   </div>
   </mat-card>
